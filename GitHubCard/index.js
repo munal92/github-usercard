@@ -50,14 +50,39 @@ const axiosPromise2 = axios.get('https://api.github.com/users/munal92/followers'
 
 
 axiosPromise2.then(response => {
-  console.log(response.data);
-  response.data.forEach(follower => {
-    const newFollowers = myProfileData(follower)
-    cards.appendChild(newFollowers);
 
-   });
+console.log('yenifonk', response.data[0].login);
+
+response.data.forEach(follower => {
+
+  const axiosPromise3 = axios.get(`https://api.github.com/users/${follower.login}`);
+  console.log('yeniax', axiosPromise3);    
+    axiosPromise3.then(response => {
+          const newPerson = response.data;
+         // console.log(myProfileData(newPerson));
+          cards.appendChild(myProfileData(newPerson));
+
+          // response.data.url.forEach(follower => {
+          // const newFollowers = myProfileData(follower)
+          // cards.appendChild(newFollowers);
+          
+        });
+     
+  
+     });
 
 });
+
+
+// axiosPromise2.then(response => {
+//   console.log(response.data);
+//   response.data.forEach(follower => {
+//     const newFollowers = myProfileData(follower)
+//     cards.appendChild(newFollowers);
+
+//    });
+
+// });
 
 
 /* Step 3: Create a function that accepts a single object as its only argument,
